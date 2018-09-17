@@ -15,10 +15,11 @@ const controller = require('./controller')
 // const app = express()
 var http = require('http')
 
-app.use(bodyParser.json())
+
 
 
 var app = require('express')();
+app.use(bodyParser.json())
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
