@@ -43,6 +43,7 @@ module.exports = {
     },
     addRoom: (req,res) => {
         const db = req.app.get('db')
+        console.log('req.body', req.body)
         db.add_room({roomName: req.body.room})
         .then(response => {
             res.status(200).send('added')
