@@ -15,7 +15,7 @@ const controller = require('./controller')
 // const app = express()
 var http = require('http')
 
-// app.use(bodyParser.json())
+app.use(bodyParser.json())
 
 
 var app = require('express')();
