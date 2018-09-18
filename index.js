@@ -24,7 +24,9 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 io.set('transports', ['websocket']);
 
-app.use(cors())
+
+var whitelist = {origin: 'http://localhost:3000'}
+app.use(cors(whitelist))
 
 
 
