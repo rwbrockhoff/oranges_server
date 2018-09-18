@@ -18,13 +18,23 @@ var http = require('http')
 
 
 
-var app = require('express')();
+// var app = require('express')();
+
+// var server = require('http').Server(app);
+// var io = require('socket.io')(server);
+
+
+
+var app = express();
 app.use(bodyParser.json())
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+app.use(cors())
+var server = app.listen(3020);
+var io = require('socket.io').listen(server);
 io.set('transports', ['websocket']);
 
-app.use(cors())
+
+
+
 
 
 
