@@ -18,40 +18,23 @@ var http = require('http')
 
 
 
-// var app = require('express')();
-
-// var server = require('http').Server(app);
-// var io = require('socket.io')(server);
-
-
-
-var app = express();
-
+var app = require('express')();
 app.use(bodyParser.json())
-app.use(cors())
-
-var server = app.listen(3020);
-var io = require('socket.io').listen(server, () => {
-    console.log("listening")
-});
-
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 io.set('transports', ['websocket']);
 
+app.use(cors())
 
 
 
-
-
-
-
-// massive(CONNECTION_STRING).then(db=>{
-//     app.set('db',db)
-//     const io = socket(
-//         server.listen(SERVER_PORT, ()=>{
-//             console.log(`listening on port ${SERVER_PORT}`)
-//         })
-//     )
-// })
+massive(CONNECTION_STRING).then(db=>{
+    app.set('db',db)
+    const io = socket(
+        server.listen(SERVER_PORT, ()=>{
+            console.log(`listening on port ${SERVER_PORT}`)
+        })
+    )
 
 
 
@@ -139,7 +122,7 @@ app.get('/dylan', (req, res) => {
     })
 })
 
-
+})
 
 
 
