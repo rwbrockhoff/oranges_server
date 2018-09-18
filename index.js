@@ -22,7 +22,7 @@ var app = require('express')();
 app.use(bodyParser.json())
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-
+io.set('transports', ['websocket']);
 
 app.use(cors())
 
