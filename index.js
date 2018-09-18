@@ -13,30 +13,27 @@ const {CONNECTION_STRING} = process.env
 
 const controller = require('./controller')
 // const app = express()
-var http = require('http')
-
-
 
 
 var app = require('express')();
+
+var http = require('http').Server(app)
+var io = require('socket.io')(http)
+
 app.use(bodyParser.json())
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-io.set('transports', ['websocket']);
 
 
-var whitelist = {origin: 'http://localhost:3000'}
-app.use(cors(whitelist))
+// io.set('transports', ['websocket']);
+
+
+// var whitelist = {origin: 'http://localhost:3000'}
+app.use(cors())
 
 
 
 massive(CONNECTION_STRING).then(db=>{
-    app.set('db',db)
-    const io = socket(
-        server.listen(SERVER_PORT, ()=>{
-            console.log(`listening on port ${SERVER_PORT}`)
-        })
-    )
+    app.set('db',db)        
+})
 
 
 
@@ -51,7 +48,7 @@ app.get('/dylan', (req, res) => {
     
 
  io.on('connection', socket => {
-    console.log('user joined!')
+    console.log('user joined!', socket.id)
 
     socket.on('disconnect', function(){
         console.log('user left :(')
@@ -124,7 +121,7 @@ app.get('/dylan', (req, res) => {
     })
 })
 
-})
+
 
 
 
@@ -160,4 +157,6 @@ app.put('/api/lockroom', controller.lockRoom)
 
 
 
-
+http.listen(SERVER_PORT, () => {
+    console.log(`Server listening on ${SERVER_PORT}`)
+})
