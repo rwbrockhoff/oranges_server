@@ -31,7 +31,9 @@ app.use(bodyParser.json())
 app.use(cors())
 
 var server = app.listen(3020);
-var io = require('socket.io').listen(server);
+var io = require('socket.io').listen(server, () => {
+    console.log("listening")
+});
 
 io.set('transports', ['websocket']);
 
