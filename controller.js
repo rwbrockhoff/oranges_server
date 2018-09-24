@@ -30,7 +30,6 @@ module.exports = {
         .then(response =>{
             req.session.userid = response[0].id
             res.status(200).send(response)
-            // console.log(response)
         })
     },
     deletePlayer: (req,res) => {
@@ -43,7 +42,6 @@ module.exports = {
     },
     addRoom: (req,res) => {
         const db = req.app.get('db')
-        console.log('req.body', req.body)
         db.add_room({roomName: req.body.room})
         .then(response => {
             res.status(200).send('added')

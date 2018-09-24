@@ -22,25 +22,14 @@ var io = require('socket.io')(http)
 
 app.use(bodyParser.json())
 
-
-// io.set('transports', ['websocket']);
-
-
 // var whitelist = {origin: 'http://localhost:3000'}
+
+
 app.use(cors())
-
-
 
 massive(CONNECTION_STRING).then(db=>{
     app.set('db',db)        
 })
-
-
-
-app.get('/dylan', (req, res) => {
-    res.status(200).send('You just hit my remote server, Dylan. Wadddup.')
-})
-
 
 
  ///SOCKETS///////
@@ -145,12 +134,6 @@ app.get('/dylan', (req, res) => {
 
 //Receives a number on the body and returns an array of that number of 'answer' cards {id, name, description}
 
-app.get('/api/testnative', (req, res) => {
-console.log('something')
-res.status(200).send('potatoes')
-})
-
-
 app.post('/api/getacard', controller.getACard)
 
 //Returns and array with one 'question' card {id, name, description}
@@ -159,7 +142,7 @@ app.get('/api/getqcard', controller.getQCard)
 //Receives username and returns an array with 1 object {id, username} - id is the session ID
 app.post('/api/newplayer', controller.newPlayer)
 
-//Needs a real comment
+
 app.delete('/api/deleteplayer/:id', controller.deletePlayer)
 
 app.post('/api/addroom', controller.addRoom)
@@ -167,7 +150,6 @@ app.post('/api/addroom', controller.addRoom)
 app.get('/api/checkroom/:name', controller.checkRoom)
 
 app.put('/api/lockroom', controller.lockRoom)
-
 
 
 http.listen(SERVER_PORT, () => {
